@@ -1,0 +1,44 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace RunawayButtonApp
+{
+    public partial class MainForm : Form
+    {
+        private Button RunawayButton;
+
+        public MainForm()
+        {
+            InitializeRunawayButton();
+        }
+
+        private void InitializeRunawayButton()  ///Свойства кнопки
+        {
+            RunawayButton = new Button();
+            RunawayButton.Text = "Нажми меня!";
+            RunawayButton.Size = new Size(100, 50);
+            RunawayButton.Location = new Point(50, 50);
+            RunawayButton.MouseEnter += RunawayButton_MouseMove;
+
+            Controls.Add(RunawayButton);
+        }
+
+        private void RunawayButton_MouseMove(object sender, EventArgs e)    ///Логика движения кнопки
+        {
+            Random random = new Random();
+            int maxX = ClientSize.Width - RunawayButton.Width;
+            int maxY = ClientSize.Height - RunawayButton.Height;
+
+            RunawayButton.Location = new Point(random.Next(maxX), random.Next(maxY));
+        }
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+        }
+    }
+}
